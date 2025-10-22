@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Page</title>
+</head>
+<body>
+  <h1>This is the One Page Template</h1>
+  <p>Hello, <%= name %>! Welcome to the One Page template.</p>
+  <% [1,2,3].forEach((index) => { %>
+    <% if (index === 1) { %>
+      <%= layout(() => { %>
+        <h2>This in one.</h2>
+        <p>Layout content goes here.</p>
+      <% }) %>
+    <% } else { %>
+      <p>Index is not one, it is <%= index %>.</p>
+    <% } %>
+  <% }) %>
+
+  <%= layout(() => { %>
+    <h2>This is content from the layout function.</h2>
+    <p>Layout content goes here.</p>
+  <% }); %>
+</body>
+</html>

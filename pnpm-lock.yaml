@@ -1,0 +1,30 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      html-escape:
+        specifier: ^2.0.0
+        version: 2.0.0
+      html-prettify:
+        specifier: ^1.0.7
+        version: 1.0.7
+
+packages:
+
+  html-escape@2.0.0:
+    resolution: {integrity: sha512-BYh0wceM2Vm4/Q8TNfnKaHXs4DCv2DuYVS87DR40elSvFc+8a6B9mE9ej+8nCOkdqPx7puEx9+hm+GoJ3f9PzA==}
+
+  html-prettify@1.0.7:
+    resolution: {integrity: sha512-99pRsP2PV2DyWnrVibNyad7gNmzCP7AANO8jw7Z9yanWyXH9dPdqdMXGefySplroqCNdk95u7j5TLxfyJ1Cbbg==}
+
+snapshots:
+
+  html-escape@2.0.0: {}
+
+  html-prettify@1.0.7: {}

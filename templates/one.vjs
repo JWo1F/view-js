@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Page</title>
+</head>
+<body>
+  <%= layout(() => { %>
+    <h2>This is content from the layout function.</h2>
+    <p>Layout content goes here.</p>
+
+    <%= layout(() => { %>
+      <h3>This is nested layout content.</h3>
+      <p>More layout content goes here.</p>
+    <% }) %>
+  <% }) %>
+</body>
+</html>
