@@ -1,5 +1,4 @@
-import p from 'html-prettify';
-import e from 'html-escape';
+import $escape from 'html-escape';
 import { Compiler } from "./compiler.js";
 
 export class Vjs {
@@ -15,7 +14,7 @@ export class Vjs {
     this.buffer = '';
 
     const append = (content) => this.buffer += content;
-    const escape = (content) => append(e(content));
+    const escape = (content) => append($escape(content));
 
     const entries = Object.entries({ ...params, append, escape });
     const keys = entries.map(([key]) => key);
@@ -24,7 +23,10 @@ export class Vjs {
     const fn = new Function(...keys, compiled);
     fn(...values);
 
-    return p(this.buffer);
+    const output = this.buffer;
+    this.buffer = '';
+
+    return output;
   }
 
   capture(cb) {

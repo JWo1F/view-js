@@ -26,8 +26,6 @@ export class Compiler {
     };
 
     for (const chunk of this.splitter.split(sourceCode)) {
-      console.log(chunk);
-
       const content = chunk.content
         .replace(/;$/, '')
         .replaceAll('\n', '\\n')
@@ -66,7 +64,6 @@ export class Compiler {
       }
     }
 
-    console.log(output);
     return output.join(';\n');
   }
 }

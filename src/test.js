@@ -2,7 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import {Vjs} from "./vjs.js";
 
-const tmpl = await fs.readFile(path.join(process.cwd(), 'templates', 'three.vjs'), 'utf-8');
+const tmpl = await fs.readFile(path.join(process.cwd(), 'templates', 'four.vjs'), 'utf-8');
 const vjs = new Vjs();
 const compiled = await vjs.compile(tmpl);
 const output = await vjs.render(compiled, {
