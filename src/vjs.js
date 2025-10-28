@@ -7,23 +7,29 @@ export class Vjs {
   }
 
   async compile(text) {
-    return this.compiler.compile(text);
+    const code = await this.compiler.compile(text);
+
+    return new Function('$', 'append', 'escape', 'yield', code);
   }
 
-  async render(compiled, params) {
+  append(content) {
+    this.buffer += content;
+  }
+
+  escape(content) {
+    this.append($escape(content));
+  }
+
+  async render(fn, params, content) {
     this.buffer = '';
 
-    const append = (content) => this.buffer += content;
-    const escape = (content) => append($escape(content));
+    const append = this.append.bind(this);
+    const escape = this.escape.bind(this);
 
-    const entries = Object.entries({ ...params, append, escape });
-    const keys = entries.map(([key]) => key);
-    const values = entries.map(([, value]) => value);
-
-    const fn = new Function(...keys, compiled);
-    fn(...values);
+    fn(params, append, escape, content);
 
     const output = this.buffer;
+
     this.buffer = '';
 
     return output;

@@ -10,11 +10,11 @@ export class Compiler {
     const stack = [];
 
     const add = (type, cmd) => {
-      if (type === 'code-output') {
+      if (type === Splitter.codeOutputSymbol) {
         cmd = `append(${cmd})`;
-      } else if (type === 'code-escape') {
+      } else if (type === Splitter.codeEscapeSymbol) {
         cmd = `escape(${cmd})`;
-      } else if (type === 'text') {
+      } else if (type === Splitter.textSymbol) {
         cmd = `append("${cmd}")`;
       }
 
@@ -31,9 +31,9 @@ export class Compiler {
         .replaceAll('\n', '\\n')
         .replaceAll('"', '\\"');
 
-      if (chunk.type === 'text') {
+      if (chunk.type === Splitter.textSymbol) {
         add(chunk.type, content);
-      } else if (chunk.type === 'code') {
+      } else if (chunk.type === Splitter.codeSymbol) {
         chunk.content = content.trim();
 
         if (chunk.content.startsWith('}')) {
@@ -53,7 +53,7 @@ export class Compiler {
         }
 
         add(chunk.type, chunk.content);
-      } else if (chunk.type === 'code-output' || chunk.type === 'code-escape') {
+      } else if ([Splitter.codeOutputSymbol, Splitter.codeEscapeSymbol].includes(chunk.type)) {
         const trimmed = content.trim();
 
         if (trimmed.endsWith('{')) {

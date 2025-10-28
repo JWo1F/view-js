@@ -1,6 +1,11 @@
 export class Splitter {
+  static textSymbol = Symbol('Text');
+  static codeSymbol = Symbol('Code');
+  static codeOutputSymbol = Symbol('Code Output');
+  static codeEscapeSymbol = Symbol('Code Escape');
+
   constructor(start = '<%', end = '%>', escape = '=', print = '-') {
-    this.stage = 'text';
+    this.stage = Splitter.textSymbol;
     this.buffer = '';
     this.start = start;
     this.end = end;
@@ -14,7 +19,7 @@ export class Splitter {
     while (i < code.length) {
       const next = (text) => code.slice(i, i + text.length) === text;
 
-      if (this.stage === 'text') {
+      if (this.stage === Splitter.textSymbol) {
         if (next(this.start)) {
           if (this.buffer) {
             yield { type: this.stage, content: this.buffer };
@@ -24,13 +29,13 @@ export class Splitter {
           i += this.start.length;
 
           if (next(this.print)) {
-            this.stage = 'code-output';
+            this.stage = Splitter.codeOutputSymbol;
             i += this.print.length;
           } else if (next(this.escape)) {
-            this.stage = 'code-escape';
+            this.stage = Splitter.codeEscapeSymbol;
             i += this.escape.length;
           } else {
-            this.stage = 'code';
+            this.stage = Splitter.codeSymbol;
           }
 
           continue;
@@ -42,7 +47,7 @@ export class Splitter {
           }
 
           this.buffer = '';
-          this.stage = 'text';
+          this.stage = Splitter.textSymbol;
 
           i += this.end.length;
 
