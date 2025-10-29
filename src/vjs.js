@@ -1,4 +1,4 @@
-import $escape from 'html-escape';
+import escape from 'html-escape';
 import { Compiler } from "./compiler.js";
 
 export class Vjs {
@@ -23,13 +23,9 @@ export class Vjs {
   async render(fn, params, content) {
     this.buffer = '';
 
-    const append = this.append.bind(this);
-    const escape = this.escape.bind(this);
-
-    fn(params, append, escape, content);
+    fn(params, this.append.bind(this), escape, content);
 
     const output = this.buffer;
-
     this.buffer = '';
 
     return output;

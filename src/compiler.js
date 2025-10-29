@@ -13,7 +13,7 @@ export class Compiler {
       if (type === Splitter.codeOutputSymbol) {
         cmd = `append(${cmd})`;
       } else if (type === Splitter.codeEscapeSymbol) {
-        cmd = `escape(${cmd})`;
+        cmd = `append(escape(${cmd}))`;
       } else if (type === Splitter.textSymbol) {
         cmd = `append("${cmd}")`;
       }
